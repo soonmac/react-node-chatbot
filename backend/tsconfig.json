@@ -1,0 +1,17 @@
+{
+  "esModuleInterop": true,
+  "ts-node": {
+    "esm": true
+  },
+  "include": ["./src/**/*.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "preserveValueImports": false,
+    "module": "CommonJS",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@config/*": ["config/*"],
+      "@public/*": ["public/*"]
+    }
+  }
+}
