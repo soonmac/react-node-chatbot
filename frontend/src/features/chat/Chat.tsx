@@ -1,9 +1,16 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 export function Chat() {
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState<any[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/openai/getChats?name=test`)
+      .then((res) => res.json())
+      .then((data) => setChats(data))
+      .catch((err) => console.error('get 실패', err));
+  }, []);
 
   const chat = async (e: FormEvent, message: string) => {
     e.preventDefault();
@@ -15,7 +22,7 @@ export function Chat() {
 
     setMessage('');
 
-    fetch('http://localhost:8000/api/openai', {
+    fetch('http://localhost:8000/api/openai/sendChat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
